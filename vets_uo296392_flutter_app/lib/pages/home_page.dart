@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:vets_uo296392_flutter_app/src/user.dart';
 
+import 'user_sigup_form.dart';
+
 class HomePage extends StatefulWidget {
   //final String _title;
   const HomePage({super.key}); // recibimos el titulo en el constructor
@@ -40,6 +42,14 @@ class StateHomePage extends State<HomePage> {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const UserSignUpForm())),
+        },
+        tooltip: "Registrar usuario",
+        child: const Icon(Icons.add),
       ),
     );
   }
