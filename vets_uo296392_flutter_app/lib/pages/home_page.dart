@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vets_uo296392_flutter_app/src/user.dart';
 
 import '../custom_alert_dialog.dart';
+import 'user_detail_page.dart';
 import 'user_edit.dart';
 import 'user_sigup_form.dart';
 
@@ -33,6 +34,7 @@ class StateHomePage extends State<HomePage> {
           return ListTile(
             onTap: () {
               User currentUser = users[index];
+
               Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -62,9 +64,17 @@ class StateHomePage extends State<HomePage> {
             leading: CircleAvatar(
               child: Text(users[index].name.substring(0, 1)),
             ),
-            trailing: const Icon(
-              Icons.call,
+            trailing: IconButton(
+              icon: Icon(Icons.visibility),
               color: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserDetailPage(user: users[index]),
+                  ),
+                );
+              },
             ),
           );
         },

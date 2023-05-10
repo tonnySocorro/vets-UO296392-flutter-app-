@@ -10,6 +10,10 @@ class UserSignUpForm extends StatefulWidget {
   UserSignUpFormState createState() => UserSignUpFormState();
 }
 
+RegExp _emailRegExp =
+    RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+RegExp _phoneRegExp = RegExp(r'^\d{3}-\d{3}-\d{3}-\d{3}$');
+
 class UserSignUpFormState extends State<UserSignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
@@ -29,6 +33,8 @@ class UserSignUpFormState extends State<UserSignUpForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                maxLength: 10,
+
                 decoration: const InputDecoration(
                   labelText: 'Nombre',
                   hintText: 'Introduce tu nombre',
@@ -37,14 +43,16 @@ class UserSignUpFormState extends State<UserSignUpForm> {
                 // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'por Favor digite el nombre';
+                    return 'Por favor introduce tu nombre';
                   }
+
                   return null;
                 },
 
                 onSaved: (value) => _name = value ?? '',
               ),
               TextFormField(
+                maxLength: 20,
                 decoration: const InputDecoration(
                   labelText: 'Apellidos',
                   hintText: 'Introduce tus apellidos',
@@ -70,6 +78,9 @@ class UserSignUpFormState extends State<UserSignUpForm> {
                   if (value == null || value.isEmpty) {
                     return 'por favor digite el  email';
                   }
+                  if (!_emailRegExp.hasMatch(value)) {
+                    return 'El correo electrónico no tiene un formato válido';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -79,12 +90,15 @@ class UserSignUpFormState extends State<UserSignUpForm> {
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Telefóno',
-                  hintText: 'Introduce tu email',
+                  hintText: 'Introduce tu teléfono',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'por favor digite el telefono ';
+                    return 'por favor digite tu teléfono ';
+                  }
+                  if (!_phoneRegExp.hasMatch(value)) {
+                    return 'El número de teléfono no tiene un formato válido (por ejemplo: 999-999-999-999)';
                   }
                   return null;
                 },
